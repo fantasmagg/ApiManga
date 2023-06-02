@@ -4,7 +4,7 @@
 
 namespace practicaWebApiManga.Migrations
 {
-    public partial class inicios : Migration
+    public partial class inicio : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,7 +28,8 @@ namespace practicaWebApiManga.Migrations
                     OrigenDelMangaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    imagenPresentacion = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -56,45 +57,23 @@ namespace practicaWebApiManga.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "generoOrigenMangas",
+                name: "GeneroOrigenDelManga",
                 columns: table => new
                 {
                     GeneroId = table.Column<int>(type: "int", nullable: false),
-                    OrigenDelMangaId = table.Column<int>(type: "int", nullable: false),
-                    OrigenManga = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    Orden = table.Column<int>(type: "int", nullable: false)
+                    OrigenDelMangaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_generoOrigenMangas", x => new { x.GeneroId, x.OrigenDelMangaId });
+                    table.PrimaryKey("PK_GeneroOrigenDelManga", x => new { x.GeneroId, x.OrigenDelMangaId });
                     table.ForeignKey(
-                        name: "FK_generoOrigenMangas_generos_GeneroId",
+                        name: "FK_GeneroOrigenDelManga_generos_GeneroId",
                         column: x => x.GeneroId,
                         principalTable: "generos",
                         principalColumn: "GeneroId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_generoOrigenMangas_origenDelMangas_OrigenDelMangaId",
-                        column: x => x.OrigenDelMangaId,
-                        principalTable: "origenDelMangas",
-                        principalColumn: "OrigenDelMangaId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "imagenPresentacions",
-                columns: table => new
-                {
-                    ImagenPresentacionId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ImagenPresentacionUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrigenDelMangaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_imagenPresentacions", x => x.ImagenPresentacionId);
-                    table.ForeignKey(
-                        name: "FK_imagenPresentacions_origenDelMangas_OrigenDelMangaId",
+                        name: "FK_GeneroOrigenDelManga_origenDelMangas_OrigenDelMangaId",
                         column: x => x.OrigenDelMangaId,
                         principalTable: "origenDelMangas",
                         principalColumn: "OrigenDelMangaId",
@@ -136,6 +115,21 @@ namespace practicaWebApiManga.Migrations
                     { 7, "Ecchi" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "origenDelMangas",
+                columns: new[] { "OrigenDelMangaId", "descripcion", "imagenPresentacion", "titulo" },
+                values: new object[] { 1, "El agente de inteligencia de “HID” y su hermano gemelo Baek Do-gyeong, el jefe de una organización criminal. Hermanos gemelos que vivieron el mismo rostro y vidas diferentes. El hermano menor que fue traicionado por la organización decide abandonar su identidad y convertirse en el hermano mayor. ¡Un agente de inteligencia se convierte en el jefe de una organización criminal…!", "https://dashboard.olympusscans.com/storage/comics/covers/8/8a4ab252a7c88ecca32113dbf5cb546ebb934d9f_s2_n2-xl.webp", "Baek XX" });
+
+            migrationBuilder.InsertData(
+                table: "GeneroOrigenDelManga",
+                columns: new[] { "GeneroId", "OrigenDelMangaId" },
+                values: new object[] { 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "GeneroOrigenDelManga",
+                columns: new[] { "GeneroId", "OrigenDelMangaId" },
+                values: new object[] { 4, 1 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_capituloMangas_OrigenDelMangaid",
                 table: "capituloMangas",
@@ -147,15 +141,9 @@ namespace practicaWebApiManga.Migrations
                 column: "CapituloMangasId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_generoOrigenMangas_OrigenDelMangaId",
-                table: "generoOrigenMangas",
+                name: "IX_GeneroOrigenDelManga_OrigenDelMangaId",
+                table: "GeneroOrigenDelManga",
                 column: "OrigenDelMangaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_imagenPresentacions_OrigenDelMangaId",
-                table: "imagenPresentacions",
-                column: "OrigenDelMangaId",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -164,10 +152,7 @@ namespace practicaWebApiManga.Migrations
                 name: "capituloSheets");
 
             migrationBuilder.DropTable(
-                name: "generoOrigenMangas");
-
-            migrationBuilder.DropTable(
-                name: "imagenPresentacions");
+                name: "GeneroOrigenDelManga");
 
             migrationBuilder.DropTable(
                 name: "capituloMangas");

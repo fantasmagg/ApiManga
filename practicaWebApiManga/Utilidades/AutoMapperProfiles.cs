@@ -10,6 +10,20 @@ namespace practicaWebApiManga.Utilidades
         {
             CreateMap<CapituloMangaCreacionDTO, CapituloMangas>()
                 .ForMember(cap => cap.capituloSheets, opciones=> opciones.MapFrom(MapCapituloSheet));
+            CreateMap<Genero, GeneroDTO>();
+
+           
+
+            CreateMap<CapituloMangas, CapituloMangasDTO>();
+
+            CreateMap<OrigenDelManga, OrigenDelMangaDTO>();
+
+            CreateMap<OrigenDelManga, OrigenMangaBanersDTO>();
+
+
+            
+
+
         }
 
         public List<CapituloSheet> MapCapituloSheet(CapituloMangaCreacionDTO capituloMangaCreacionDTO, CapituloMangas capituloMangas)

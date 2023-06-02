@@ -11,8 +11,8 @@ using practicaWebApiManga;
 namespace practicaWebApiManga.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230530232239_inicios")]
-    partial class inicios
+    [Migration("20230602032848_inicio")]
+    partial class inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,6 +22,33 @@ namespace practicaWebApiManga.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("GeneroOrigenDelManga", b =>
+                {
+                    b.Property<int>("GeneroId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrigenDelMangaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GeneroId", "OrigenDelMangaId");
+
+                    b.HasIndex("OrigenDelMangaId");
+
+                    b.ToTable("GeneroOrigenDelManga");
+
+                    b.HasData(
+                        new
+                        {
+                            GeneroId = 1,
+                            OrigenDelMangaId = 1
+                        },
+                        new
+                        {
+                            GeneroId = 4,
+                            OrigenDelMangaId = 1
+                        });
+                });
 
             modelBuilder.Entity("practicaWebApiManga.Entidad.CapituloMangas", b =>
                 {
@@ -123,51 +150,6 @@ namespace practicaWebApiManga.Migrations
                         });
                 });
 
-            modelBuilder.Entity("practicaWebApiManga.Entidad.GeneroOrigenManga", b =>
-                {
-                    b.Property<int>("GeneroId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrigenDelMangaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Orden")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OrigenManga")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.HasKey("GeneroId", "OrigenDelMangaId");
-
-                    b.HasIndex("OrigenDelMangaId");
-
-                    b.ToTable("generoOrigenMangas");
-                });
-
-            modelBuilder.Entity("practicaWebApiManga.Entidad.ImagenPresentacion", b =>
-                {
-                    b.Property<int>("ImagenPresentacionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImagenPresentacionId"), 1L, 1);
-
-                    b.Property<string>("ImagenPresentacionUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OrigenDelMangaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ImagenPresentacionId");
-
-                    b.HasIndex("OrigenDelMangaId")
-                        .IsUnique();
-
-                    b.ToTable("imagenPresentacions");
-                });
-
             modelBuilder.Entity("practicaWebApiManga.Entidad.OrigenDelManga", b =>
                 {
                     b.Property<int>("OrigenDelMangaId")
@@ -179,6 +161,9 @@ namespace practicaWebApiManga.Migrations
                     b.Property<string>("descripcion")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("imagenPresentacion")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("titulo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -186,6 +171,30 @@ namespace practicaWebApiManga.Migrations
                     b.HasKey("OrigenDelMangaId");
 
                     b.ToTable("origenDelMangas");
+
+                    b.HasData(
+                        new
+                        {
+                            OrigenDelMangaId = 1,
+                            descripcion = "El agente de inteligencia de “HID” y su hermano gemelo Baek Do-gyeong, el jefe de una organización criminal. Hermanos gemelos que vivieron el mismo rostro y vidas diferentes. El hermano menor que fue traicionado por la organización decide abandonar su identidad y convertirse en el hermano mayor. ¡Un agente de inteligencia se convierte en el jefe de una organización criminal…!",
+                            imagenPresentacion = "https://dashboard.olympusscans.com/storage/comics/covers/8/8a4ab252a7c88ecca32113dbf5cb546ebb934d9f_s2_n2-xl.webp",
+                            titulo = "Baek XX"
+                        });
+                });
+
+            modelBuilder.Entity("GeneroOrigenDelManga", b =>
+                {
+                    b.HasOne("practicaWebApiManga.Entidad.Genero", null)
+                        .WithMany()
+                        .HasForeignKey("GeneroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("practicaWebApiManga.Entidad.OrigenDelManga", null)
+                        .WithMany()
+                        .HasForeignKey("OrigenDelMangaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("practicaWebApiManga.Entidad.CapituloMangas", b =>
@@ -210,52 +219,14 @@ namespace practicaWebApiManga.Migrations
                     b.Navigation("CapituloMangas");
                 });
 
-            modelBuilder.Entity("practicaWebApiManga.Entidad.GeneroOrigenManga", b =>
-                {
-                    b.HasOne("practicaWebApiManga.Entidad.Genero", "Genero")
-                        .WithMany("GeneroOrigenMangas")
-                        .HasForeignKey("GeneroId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("practicaWebApiManga.Entidad.OrigenDelManga", "OrigenDelManga")
-                        .WithMany("GeneroOrigenMangas")
-                        .HasForeignKey("OrigenDelMangaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Genero");
-
-                    b.Navigation("OrigenDelManga");
-                });
-
-            modelBuilder.Entity("practicaWebApiManga.Entidad.ImagenPresentacion", b =>
-                {
-                    b.HasOne("practicaWebApiManga.Entidad.OrigenDelManga", null)
-                        .WithOne("imagenPresentacion")
-                        .HasForeignKey("practicaWebApiManga.Entidad.ImagenPresentacion", "OrigenDelMangaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("practicaWebApiManga.Entidad.CapituloMangas", b =>
                 {
                     b.Navigation("capituloSheets");
                 });
 
-            modelBuilder.Entity("practicaWebApiManga.Entidad.Genero", b =>
-                {
-                    b.Navigation("GeneroOrigenMangas");
-                });
-
             modelBuilder.Entity("practicaWebApiManga.Entidad.OrigenDelManga", b =>
                 {
                     b.Navigation("CapituloMangas");
-
-                    b.Navigation("GeneroOrigenMangas");
-
-                    b.Navigation("imagenPresentacion")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

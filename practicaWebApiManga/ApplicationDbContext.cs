@@ -17,11 +17,11 @@ namespace practicaWebApiManga
              modelBuilder.Entity<OrigenDelManga>().HasIndex(t => t.titulo).IsUnique();*/
 
             // esto es por que esta sera la tabla intermedia de una ralacion de muchos a muchos en tre genero, y origendelmanga
-            modelBuilder.Entity<GeneroOrigenManga>().HasKey(prop => new { prop.GeneroId, prop.OrigenDelMangaId });
+            
 
             modelBuilder.Entity<CapituloSheet>().HasKey(prop => new { prop.CapituloSheetId, prop.CapituloMangasId });
 
-            modelBuilder.Entity<GeneroOrigenManga>().Property(prop => prop.OrigenManga).HasMaxLength(150);
+           
 
             modelBuilder.Entity<CapituloSheet>()
             .Property(prop => prop.CapituloSheetId)
@@ -33,10 +33,10 @@ namespace practicaWebApiManga
         }
 
         public DbSet<Genero> generos { get; set; }
-        public DbSet<ImagenPresentacion> imagenPresentacions { get; set; }
+        
         public DbSet<OrigenDelManga> origenDelMangas { get; set; }
         public DbSet<CapituloMangas> capituloMangas { get; set; }
-        public DbSet<GeneroOrigenManga> generoOrigenMangas { get; set; }
+
         public DbSet<CapituloSheet> capituloSheets { get; set; }
 
     }

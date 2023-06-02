@@ -1,15 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
-namespace practicaWebApiManga.Entidad
+namespace practicaWebApiManga.DTOs
 {
-    public class Genero
+    public class GeneroDTO
     {
         public int GeneroId { get; set; }
         [Required(ErrorMessage = "Este {0} campo es requerido")]
         public string Nombre { get; set; }
 
-       
-        public HashSet<OrigenDelManga> OrigenDelManga { get; set; }
+
     }
 }
