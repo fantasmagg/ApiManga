@@ -11,8 +11,8 @@ using practicaWebApiManga;
 namespace practicaWebApiManga.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230602032848_inicio")]
-    partial class inicio
+    [Migration("20230603181618_incio")]
+    partial class incio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,6 +47,21 @@ namespace practicaWebApiManga.Migrations
                         {
                             GeneroId = 4,
                             OrigenDelMangaId = 1
+                        },
+                        new
+                        {
+                            GeneroId = 8,
+                            OrigenDelMangaId = 2
+                        },
+                        new
+                        {
+                            GeneroId = 9,
+                            OrigenDelMangaId = 2
+                        },
+                        new
+                        {
+                            GeneroId = 1,
+                            OrigenDelMangaId = 2
                         });
                 });
 
@@ -147,6 +162,16 @@ namespace practicaWebApiManga.Migrations
                         {
                             GeneroId = 7,
                             Nombre = "Ecchi"
+                        },
+                        new
+                        {
+                            GeneroId = 8,
+                            Nombre = "aventura"
+                        },
+                        new
+                        {
+                            GeneroId = 9,
+                            Nombre = "fantacia"
                         });
                 });
 
@@ -179,6 +204,13 @@ namespace practicaWebApiManga.Migrations
                             descripcion = "El agente de inteligencia de “HID” y su hermano gemelo Baek Do-gyeong, el jefe de una organización criminal. Hermanos gemelos que vivieron el mismo rostro y vidas diferentes. El hermano menor que fue traicionado por la organización decide abandonar su identidad y convertirse en el hermano mayor. ¡Un agente de inteligencia se convierte en el jefe de una organización criminal…!",
                             imagenPresentacion = "https://dashboard.olympusscans.com/storage/comics/covers/8/8a4ab252a7c88ecca32113dbf5cb546ebb934d9f_s2_n2-xl.webp",
                             titulo = "Baek XX"
+                        },
+                        new
+                        {
+                            OrigenDelMangaId = 2,
+                            descripcion = "El protagonista de una historia siempre se decide desde el principio. Por mucho que se esfuerce el papel secundario, al final sólo será un papel secundario. Entonces, llegó un momento en que todo eso cambió. [León, ¿crees que estás capacitado?] La espada sagrada que debería elegir al héroe del oráculo se acercara a él. ¿Qué? ¿No tienes talento, eres pobre y no tienes contactos? No te preocupes. ¡El héroe que puede resolver cualquier cosa con la espada sagrada está aquí! ...Hubo un periodo en el que yo también esperaba así. Aquí es donde comienza la historia de León como héroe.",
+                            imagenPresentacion = "https://dashboard.olympusscans.com/storage/comics/covers/128/op-xl.webp",
+                            titulo = "Espada OP"
                         });
                 });
 

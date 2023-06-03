@@ -12,9 +12,11 @@ namespace practicaWebApiManga.Utilidades
                 .ForMember(cap => cap.capituloSheets, opciones=> opciones.MapFrom(MapCapituloSheet));
             CreateMap<Genero, GeneroDTO>();
 
-           
+            
 
             CreateMap<CapituloMangas, CapituloMangasDTO>();
+
+            CreateMap<CapituloSheet, CapituloSheetDTO>();
 
             CreateMap<OrigenDelManga, OrigenDelMangaDTO>();
 

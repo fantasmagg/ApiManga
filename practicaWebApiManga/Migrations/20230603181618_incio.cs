@@ -4,7 +4,7 @@
 
 namespace practicaWebApiManga.Migrations
 {
-    public partial class inicio : Migration
+    public partial class incio : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -112,23 +112,31 @@ namespace practicaWebApiManga.Migrations
                     { 4, "Ciencia ficción" },
                     { 5, "Drama" },
                     { 6, "Hentai" },
-                    { 7, "Ecchi" }
+                    { 7, "Ecchi" },
+                    { 8, "aventura" },
+                    { 9, "fantacia" }
                 });
 
             migrationBuilder.InsertData(
                 table: "origenDelMangas",
                 columns: new[] { "OrigenDelMangaId", "descripcion", "imagenPresentacion", "titulo" },
-                values: new object[] { 1, "El agente de inteligencia de “HID” y su hermano gemelo Baek Do-gyeong, el jefe de una organización criminal. Hermanos gemelos que vivieron el mismo rostro y vidas diferentes. El hermano menor que fue traicionado por la organización decide abandonar su identidad y convertirse en el hermano mayor. ¡Un agente de inteligencia se convierte en el jefe de una organización criminal…!", "https://dashboard.olympusscans.com/storage/comics/covers/8/8a4ab252a7c88ecca32113dbf5cb546ebb934d9f_s2_n2-xl.webp", "Baek XX" });
+                values: new object[,]
+                {
+                    { 1, "El agente de inteligencia de “HID” y su hermano gemelo Baek Do-gyeong, el jefe de una organización criminal. Hermanos gemelos que vivieron el mismo rostro y vidas diferentes. El hermano menor que fue traicionado por la organización decide abandonar su identidad y convertirse en el hermano mayor. ¡Un agente de inteligencia se convierte en el jefe de una organización criminal…!", "https://dashboard.olympusscans.com/storage/comics/covers/8/8a4ab252a7c88ecca32113dbf5cb546ebb934d9f_s2_n2-xl.webp", "Baek XX" },
+                    { 2, "El protagonista de una historia siempre se decide desde el principio. Por mucho que se esfuerce el papel secundario, al final sólo será un papel secundario. Entonces, llegó un momento en que todo eso cambió. [León, ¿crees que estás capacitado?] La espada sagrada que debería elegir al héroe del oráculo se acercara a él. ¿Qué? ¿No tienes talento, eres pobre y no tienes contactos? No te preocupes. ¡El héroe que puede resolver cualquier cosa con la espada sagrada está aquí! ...Hubo un periodo en el que yo también esperaba así. Aquí es donde comienza la historia de León como héroe.", "https://dashboard.olympusscans.com/storage/comics/covers/128/op-xl.webp", "Espada OP" }
+                });
 
             migrationBuilder.InsertData(
                 table: "GeneroOrigenDelManga",
                 columns: new[] { "GeneroId", "OrigenDelMangaId" },
-                values: new object[] { 1, 1 });
-
-            migrationBuilder.InsertData(
-                table: "GeneroOrigenDelManga",
-                columns: new[] { "GeneroId", "OrigenDelMangaId" },
-                values: new object[] { 4, 1 });
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 1, 2 },
+                    { 4, 1 },
+                    { 8, 2 },
+                    { 9, 2 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_capituloMangas_OrigenDelMangaid",

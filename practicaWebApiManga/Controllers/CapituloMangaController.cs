@@ -53,6 +53,29 @@ namespace practicaWebApiManga.Controllers
             return Ok();
 
         }
+        [HttpGet("{idOriManga:int}")]
+        public async Task<ActionResult<List<CapituloMangasDTO>>> getCapAll(int idOriManga)
+        {
+            var cap = await context.capituloMangas.Where(cap => cap.OrigenDelMangaid== idOriManga).ToListAsync();
+
+            var caps = mapper.Map<List<CapituloMangasDTO>>(cap);
+            return caps;
+
+
+        }
+        [HttpGet("sheet/{idOrigen:int}/{idcap:int}/{numeroCap:int}")]
+        public async Task<ActionResult<CapituloMangasDTO>> getCapShee(int idOrigen, int idcap , int numeroCap)
+        {
+            var cap = await context.capituloMangas
+                .Where(cap =>cap.OrigenDelMangaid==idOrigen && cap.CapituloMangasId == idcap && cap.NumeroCap == numeroCap)
+                .Include(sheet => sheet.capituloSheets)
+                .FirstOrDefaultAsync();
+
+            var caps = mapper.Map<CapituloMangasDTO>(cap);
+            return caps;
+
+
+        }
 
 
 
